@@ -19,13 +19,19 @@ import java.util.List;
  *
  */
 public class MyInfo implements Comparable<MyInfo>{
+	public final boolean isIschecked() {
+		return ischecked;
+	}
+	public final void setIschecked(boolean ischecked) {
+		this.ischecked = ischecked;
+	}
 	protected Integer id;   //自己id
 	protected String name;   //名字
 	protected String url;   //url地址  
 	protected Integer pid;     //父类id
 	protected String sort;     //等级
 	protected String sortNum;     //排序号
-	
+	protected boolean ischecked;
 	protected List nodes = new ArrayList();
 	protected List properties = new ArrayList();
 	

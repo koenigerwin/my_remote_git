@@ -31,7 +31,8 @@ public class PermissionInfo implements  Serializable{
 	private Integer pmsnUimId;// 修改人id
 	private String pmsnUimName;//修改人名
 	private String pmsnUpdateTime;// 修改日期
-
+    private Boolean ischecked;
+   
 	public PermissionInfo() {
 		super();
 	}
@@ -119,6 +120,17 @@ public class PermissionInfo implements  Serializable{
 	public final void setPmsnUpdateTime(String pmsnUpdateTime) {
 		this.pmsnUpdateTime = pmsnUpdateTime;
 	}
+	
+	public final Boolean getIschecked() {
+		return ischecked;
+	}
+
+
+	public final void setIschecked(Boolean ischecked) {
+		this.ischecked = ischecked;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return pmsnName.hashCode();

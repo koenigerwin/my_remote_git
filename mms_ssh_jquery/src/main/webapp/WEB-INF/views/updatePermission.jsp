@@ -33,17 +33,18 @@
 function loadData() //选择一笔,按确认按钮带回 
 {
 	$.ajax({
-		url:'${path}/sm/grant/update',
+		url:'${path}/sm/grant/updatePmsn',
 		method:'post',
 		dataType:'json',
 		data:$('#form1').serialize(),
 		success:function(info){
 			console.info(info)
-			alert(info.msg);
+			
 	var data = frameElement.dialog;
 	/* var dataName = data.get("data"); */
 	var dataName = data.get("data").name;
-	$("#txtPid").val(dataName);   		
+	$("#txtPid").val(dataName);  
+	alert("修改成功");
 	window.parent.location.reload();
 		}
 		
@@ -67,7 +68,7 @@ $(function(){
 					$('#txtPid').val(data.pmsnId)
 					 $('#table_t').val(data.pmsnName);
 					$('#txtUrl').val(data.pmsnUrl)
-					$('#txtName').val(data.pmsnCreateId)
+					$('#txtName').val(data.pmsnCreateName)
 					$('#txtTime').val(data.pmsnCreateDatetime)
 					/* $('#m_superid').val(sss.m_superid);
 					$('#m_image').val(sss.m_image);
@@ -112,8 +113,8 @@ color: gray;
                     </tr>
                 <tr>
                     	           
-                        <td>创建人名::</td>
-                        <td><input   name="pmsnCreateId" type="text" id="txtName" ltype="text" readonly="readonly" /></td>
+                        <td>创建人名:</td>
+                        <td><input   name="pmsnCreateName" type="text" id="txtName" ltype="text" readonly="readonly" /></td>
                        
                     </tr> <tr>
                     	           

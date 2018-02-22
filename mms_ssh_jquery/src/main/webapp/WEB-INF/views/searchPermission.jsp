@@ -120,19 +120,22 @@ li {
 				align : 'left'
 			}, {
 				display : '创建人',
-				name : 'pmsnCreateId',
+				name : 'pmsnCreateName',
 				width : 60
 			}, {
 				display : '创建时间',
 				name : 'pmsnCreateDatetime'
 			}, {
 				display : '操作人',
-				name : 'pmsnUimId',
+				name : 'pmsnUimName',
 				width : 60
 			}, {
 				display : '修改时间',
 				name : 'pmsnUpdateTime'
-			} ],
+			} , {
+				display : '描述信息',
+				name : 'pmsnDescription'
+			}],
 			method : 'get',
 			dataType : 'json',
 			dataAction : 'local',

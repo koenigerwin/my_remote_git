@@ -103,12 +103,6 @@ Logger log =Logger.getLogger(GrantServiceTest.class);
 	@Test
 	public void testGetAllPermission() {
 		List<PermissionInfo> map = igs.getAllPermission();
-	/*	Map<Class<?>, Set<String>> includeMap = new HashMap<Class<?>, Set<String>>();
-		Set<String> set = new HashSet<String>();
-		set.add("rmpSet");
-		includeMap.put(Permission.class, set);
-		SerializeWriter json =  JsonHelpler.toJSON(map, includeMap);
-		String str = json.toString();*/
 		log.info(map.toString());
 	}
 
@@ -130,7 +124,7 @@ Logger log =Logger.getLogger(GrantServiceTest.class);
 		String time = UtilFactory.getInstanceOfNowTimeFormat().getNowTime();
 		
 		RoleMenuPermissionInfo rmp = new RoleMenuPermissionInfo();
-		rmp.setMenuPermissionId(2);
+		rmp.setMenuPermissionId(12);
 		rmp.setRmpCreateUid(2);
 		rmp.setRoleId(1);
 		rmp.setRmpCreateDatetime(time);
@@ -194,29 +188,18 @@ Logger log =Logger.getLogger(GrantServiceTest.class);
 	}
 
 	/**
-	 * Test method for {@link com.clps.bj.mms.sm.service.impl.GrantServiceImpl#iscontainsRoleMenuPermission(com.clps.bj.mms.sm.entity.RoleMenuPermission)}.
-	 */
-	@Test
-	public void testIscontainsRoleMenuPermission() {
-		RoleMenuPermissionInfo rmp = new RoleMenuPermissionInfo();
-		rmp.setMenuPermissionId(1);
-		rmp.setRoleId(1);
-		log.info(igs.iscontainsRoleMenuPermission(rmp));
-	}
-
-	/**
 	 * Test method for {@link com.clps.bj.mms.sm.service.impl.GrantServiceImpl#addMenuPermission(com.clps.bj.mms.sm.entity.MenuPermission)}.
 	 */
 	@Test
 	public void testAddMenuPermission() {
 	String time = UtilFactory.getInstanceOfNowTimeFormat().getNowTime();
 	MenuPermissionInfo mp = new MenuPermissionInfo();
-	mp.setMenuId(3);
+	mp.setMenuId(6);
 	mp.setMpCreateDatetime(time);
 	mp.setMpCreateId(1);
 	mp.setMpUpdateTime(time);
 	mp.setMpUpdateUid(4);
-	mp.setPermissionId("4028348161556e880161556e97d00000");
+	mp.setPermissionId("402834816140b280016140b2874f0000");
 	log.info(igs.addMenuPermission(mp));
 	
 	}

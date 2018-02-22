@@ -25,7 +25,7 @@ import com.clps.bj.mms.sm.entity.Permission;
  * @Description:MenuPermissionDao接口实现类
  * @author: snow.y
  * @date: 2018年1月26日 下午2:38:55
- * @version V 1.0.0
+ * @version V 1.0.1
  */
 @Repository
 public class MenuPermissionDaoImpl implements MenuPermissionDao {
@@ -161,6 +161,32 @@ public class MenuPermissionDaoImpl implements MenuPermissionDao {
 		query.setParameter("mpId", id);
 		list = query.list();
 		return list.size()>0?list.get(0):null;
+	}
+
+	/* 
+	 * @param menuPermissionInfo
+	 * @return      
+	 * @see com.clps.bj.mms.sm.dao.MenuPermissionDao#getSearchMenuPmsn(com.clps.bj.mms.sm.vo.MenuPermissionInfo)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public MenuPermission getSearchMenuPmsn(MenuPermission menuPermission) {
+		menuId = menuPermission.getMenu().getMenuId();
+		permissionId = menuPermission.getPermission().getPmsnId();
+		String str = hqlQueryMId;
+		if(permissionId!=null){
+			str+=" and c.permission.pmsnId=:pmsnId";
+			query = factory.getCurrentSession().createQuery(str);
+			query.setParameter(mpMenuId, menuId);
+			query.setParameter(mpPmsnId, permissionId);
+		}
+		else{
+			str+=" and c.permission.pmsnId is null";
+			query = factory.getCurrentSession().createQuery(str);
+			query.setParameter(mpMenuId, menuId);
+		}
+		list = query.list();
+		return list.size()>0?(MenuPermission)list.get(0):new MenuPermission();
 	}
 
 }

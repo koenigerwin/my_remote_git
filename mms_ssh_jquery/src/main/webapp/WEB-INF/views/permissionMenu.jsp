@@ -12,7 +12,7 @@
 	rel="stylesheet" type="text/css" />
 <link
 	href="${path}/static/js/ligerUI/lib/ligerUI/skins/ligerui-icons.css"
-	rel="stylesheet" type="text/css" />
+	rel="stylesheet" type="text/css" />	
 <style type="text/css">
 mainBody_head, mainBody_font {
 	border: solid 1px red;
@@ -54,6 +54,7 @@ width: 80px;
 	var d = {
 		"text" : "aa"
 	}
+	
 	function itemclick(item) {
 		alert(item.text);
 	}
@@ -98,7 +99,11 @@ width: 80px;
 					    		pmsnId:pmsnId
 					    	},
 					    	success:function(data){
+					    		console.info(data)
+					    	},
+					    	error:function(data){
 					    		alert("删除成功!")
+					    		console.info(data)
 					    	}
 					    })
 					    window.location.href='${path}/sm/grantview/showAllPmsn';
@@ -129,18 +134,21 @@ width: 80px;
 						align : 'left'
 					}, {
 						display : '创建人',
-						name : 'pmsnCreateId',
+						name : 'pmsnCreateName',
 						width : 60
 					}, {
 						display : '创建时间',
 						name : 'pmsnCreateDatetime'
 					}, {
 						display : '操作人',
-						name : 'pmsnUimId',
+						name : 'pmsnUimName',
 						width : 60
 					}, {
 						display : '修改时间',
 						name : 'pmsnUpdateTime'
+					},{
+						display : '描述信息',
+						name : 'pmsnDescription'
 					} ],
 					parms : {
 						pmsnName:pname,
@@ -179,19 +187,22 @@ width: 80px;
 				align : 'left'
 			}, {
 				display : '创建人',
-				name : 'pmsnCreateId',
+				name : 'pmsnCreateName',
 				width : 60
 			}, {
 				display : '创建时间',
 				name : 'pmsnCreateDatetime'
 			}, {
 				display : '操作人',
-				name : 'pmsnUimId',
+				name : 'pmsnUimName',
 				width : 60
 			}, {
 				display : '修改时间',
 				name : 'pmsnUpdateTime'
-			} ],
+			} , {
+				display : '描述信息',
+				name : 'pmsnDescription'
+			}],
 			method : 'get',
 			dataType : 'json',
 			dataAction : 'local',
@@ -208,9 +219,9 @@ width: 80px;
 	function openwin(url,select,title) {
 		$.ligerDialog
 				.open({
-					height : 500,
+					height : 400,
 					url : url,
-					width : 750,
+					width : 550,
 					name : 'addWindow',
 					title : title,
 					isResize : true,

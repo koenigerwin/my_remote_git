@@ -12,7 +12,7 @@ import com.clps.bj.mms.sm.entity.RoleMenuPermission;
  * @version V 1.0.3
  */
 public interface RoleMenuPermissionDao {
-	public static final String hqlDeleteByRole = "delete from RoleMenuPermission r where r.role=:role";// 删除语句
+	public static final String hqlDeleteByRole = "delete from role_menu_pmsn where rmp_role_id=?";// 删除语句
 	public static final String hqlDeleteById = "delete from RoleMenuPermission r where r.rmpId=:rmpId";//根据id删除
 	public static final String hqlUpdate = "update RoleMenuPermission r set "
 			+ "r.menuPermission.mpId=:mpId,r.rmpUpdatetime=:rmpUpdatetime,"

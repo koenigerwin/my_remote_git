@@ -7,9 +7,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="${path}/static/js/ligerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet"></link>
+<link
+	href="${path}/static/js/ligerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="${path}/static/js/ligerUI/lib/ligerUI/skins/ligerui-icons.css"
+	rel="stylesheet" type="text/css" />
+	  <link rel="stylesheet" href="${path}/static/js/layui/css/layui.css" media="all">
 <link rel="stylesheet" type="text/css" id="mylink" />
 <script src="${path}/static/js/ligerUI/lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script
+	src="${path}/static/js/ligerUI/lib/ligerUI/js/plugins/ligerMenu.js"
+	type="text/javascript"></script>
+<script
+	src="${path}/static/js/ligerUI/lib/ligerUI/js/plugins/ligerMenuBar.js"
+	type="text/javascript"></script>
+<script
+	src="${path}/static/js/ligerUI/lib/ligerUI/js/plugins/ligerToolBar.js"
+	type="text/javascript"></script>
 <style>
 #left-body{
 float: left;
@@ -191,14 +206,57 @@ body {
     		}
     	})
     } */
+    var tree = null;
     var tab = null;
     var accordion = null;
     var tabItems = [];
+    var manager = null;
     $(function() {
 
+    	$("#toptoolbar").ligerToolBar({
+			items : [ {
+				icon : 'modify',
+				text : '保存',
+				click : function(item) {
+					console.info(manager.getChecked());
+					var arr = manager.getChecked();
+					$.ajax({
+						url:'${path}/sm/grant/deleteRoleMenuPmsn/${roleId}',
+						method:'post',
+						dataType:'json',
+						success:function(data){
+							alert(data.msg)
+						}
+					})
+					for (var i = 1; i < arr.length; i++) {
+						if(arr[i].data.children==null){
+							console.info(arr[i].data);
+							console.info(manager.getParent(arr[i].data))
+							var pmsnId = arr[i].data.pmsnId;
+							var menuId = manager.getParent(arr[i].data).id;
+							$.ajax({
+								url:'${path}/sm/grant/updataRoleMenuPmsn/${roleId}',
+								method:'post',
+								dataType:'json',
+								data:{pmsnId:pmsnId,menuId:menuId},
+								success:function(data){
+								
+								}
+							})
+						}
+					}
+					},
+			}, { line: true },
+ {
+				text : '刷新',
+				click : function() {
+					manager.reload()
+					},
+			},{ line: true } ]
+		});
     	//布局
-    	$("#layout1").ligerLayout({
-    		leftWidth : 190,
+    	/* $("#layout1").ligerLayout({
+    		leftWidth : '20%',
     		height : '100%',
     		heightDiff : -34,
     		space : 4,
@@ -237,7 +295,7 @@ body {
     			addFrameSkinLink(tabid);
     		}
     	});
-
+ */
     	//面板
     	/* $("#accordion1").ligerAccordion({
     		height : height - 24,
@@ -251,20 +309,21 @@ body {
     	}); */
     	
     	//树
-    	$("#tree1").ligerTree({
+    	tree =$("#tree1").ligerTree({
     		dataType:'json',
-    		url : "${path}/sm/grant/getMenuPmsn2/${roleId}",
-    		checkbox : false,
+    		url : "${path}/sm/grant/getMenuPmsn/${roleId}",
+    		checkbox : true,
     		slide : false,
     		nodeWidth : 120,
     		attribute : [ 'nodename', 'url' ],
-    		render : function(a) {
+    		/* render : function(a) {
     			if (!a.isnew)
     				return a.text;
     			return '<a href="' + a.url + '" target="_blank">'
     					+ a.text + '</a>';
-    		},
-    		onSelect : function(node) {
+    		} */
+    		onSelect:onSelect
+    		/* onSelect : function(node) {
     			console.log("node:"+node.data.id);
     			$.cookie('menuId', node.data.id);
     			if (!node.data.url)
@@ -285,8 +344,9 @@ body {
     				}
     			}
     		}
+    		 */
     	});
-    	
+    	manager = $("#tree1").ligerGetTreeManager();
     /* 	function openNew(url) {
     		var jform = $('#opennew_form');
     		if (jform.length == 0) {
@@ -301,14 +361,36 @@ body {
     	}
     	; */
 
-    	tab = liger.get("framecenter");
-    	accordion = liger.get("accordion1");
+    	/* tab = liger.get("framecenter");
+    	accordion = liger.get("accordion1"); */
     	tree = liger.get("tree1");
     	$("#pageloading").hide();
 
     	css_init();
     	//pages_init();
     });
+    function onSelect(note) //这里的异步加载逻辑取决于你的数据库设计，把选中节点的id传回去，传回子节点json然后加载  
+    {              console.info(note)   
+    	if(note.data.children.length==0){
+    		$.ajax({
+    			method:'post',
+    			url:"${path}/sm/grant/getMenuPermission/${roleId}/"+ note.data.id,
+    			success:function(data){
+    				var json = JSON.parse(data);
+    				console.info(json);
+    			   if(json.length==1){
+    				   if(json[0].pmsnId!=null){
+    					   manager.loadData(note.target, "${path}/sm/grant/getMenuPermission/${roleId}/"+ note.data.id);    
+    				   }
+    			   }
+    			   else{
+    				   manager.loadData(note.target, "${path}/sm/grant/getMenuPermission/${roleId}/"+ note.data.id);    
+    			   }
+    				
+    			}
+    		})
+    } 
+    }
     function f_heightChanged(options) {
     	if (tab)
     		tab.addHeight(options.diff);
@@ -325,6 +407,18 @@ body {
     			addFrameSkinLink(tabid);
     		}
     	});
+    }
+    function addTreeItem()
+    {
+         //根据tree对象获取选中的结点
+        var node = manager.getSelected();
+
+        var data= [];
+        data.push({ text:'测试'});
+        if (node)
+            manager.append(node.target, data); 
+        else
+            manager.append(null, data);
     }
     function addShowCodeBtn(tabid)
      {
@@ -431,6 +525,7 @@ body {
     		}
     	}
     }
+
     </script>
 </head>
 <body>
@@ -464,10 +559,13 @@ body {
 				target="_blank">服务支持</a>
 		</div>
 	</div> -->
-	<div id="layout1"
-		style="width: 99.2%; margin: 0 auto; margin-top: 4px;">
-		<div position="left" title="角色列表" id="accordion1">
+	<!-- <form> -->
+	<!-- <div id="layout1"
+		style="width: 99.2%; margin: 0 auto; margin-top: 4px;"> -->
+		<!-- <div position="left" title="权限设置" id="accordion1"> -->
 			<!-- <div > -->
+			<div id="topmenu"></div>
+			<div id="toptoolbar"></div>
 				<ul id="tree1" style="margin-top: 3px;">
 			
 			<!-- </div> -->
@@ -485,12 +583,13 @@ body {
 				<a class="l-link" href="lab/generate/index.htm" target="_blank">表格表单设计器</a>
 				<a class="l-link" href="lab/formdesign/index.htm" target="_blank">可视化表单设计</a>
 			</div> -->
-		</div>
-		<div position="center" id="framecenter">
-			<!-- <div tabid="home" title="我的主页" style="height: 300px">
+		<!-- </div> -->
+	<!-- <div position="center" id="framecenter">
+			<div tabid="home" style="height: 300px">
 				<iframe frameborder="0" name="home" id="home" src="/mms_ssh_jquery/main.htm"></iframe>
-			</div> -->
-		</div> 
-	</div>
+			</div>
+			<p id="pp"></p>
+		</div>  -->
+<!-- 	</div> -->
 </body>
 </html>

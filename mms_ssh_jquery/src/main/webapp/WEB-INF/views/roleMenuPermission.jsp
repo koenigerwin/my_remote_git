@@ -281,7 +281,7 @@ body {
     				} else {
     					tabid = new Date().getTime();
     					$(node.target).attr("tabid", tabid);
-    					f_addTab(tabid, node.data.text, '${path}'+node.data.url);
+    					f_addTab(tabid, node.data.text, node.data.url);
     				}
     			}
     		}
@@ -487,9 +487,7 @@ body {
 			</div> -->
 		</div>
 	<div position="center" id="framecenter">
-			<div tabid="home" title="我的主页" style="height: 300px">
-				<iframe frameborder="0" name="home" id="home" src="/mms_ssh_jquery/main.htm"></iframe>
-			</div>
+			
 		</div> 
 	</div>
 </body>

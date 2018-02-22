@@ -27,6 +27,7 @@ public interface MenuPermissionDao {
 			+ "mp.permission.pmsnId=:pmsnId where mp.mpId=:mpId";// 修改菜单权限的语句
 	public static final String hqlQueryByMId = "from MenuPermission c  where c.menu.menuId=:menuId";// 查询菜单的权限
 	public static final String hqlQueryById = "from MenuPermission c  where c.mpId=:mpId";// 根据主键查询菜单的权限
+	public static final String hqlQueryMId = "from MenuPermission c  where c.menu.menuId=:menuId";// 查询菜单的权限
 	public static final String hqlQueryAll = "from MenuPermission";// 查询所有菜单权限
 	public static final String mpUpdateTime = "mpUpdateTime";// 修改时间
 	public static final String mpId = "mpId";// 主键id
@@ -74,6 +75,14 @@ public interface MenuPermissionDao {
      *
      */
 	public List<Permission> getMenuPermissionByMenuId(MenuPermission menuPermission);
+	/**
+	 * 
+	 * @Description 								查询菜单权限的id
+	 * @param menuPermissionInfo					菜单权限vo实体类对象
+	 * @return MenuPermissionInfo       			菜单权限vo实体类对象
+	 *
+	 */
+	public MenuPermission getSearchMenuPmsn(MenuPermission menuPermissionInfo);
     /**
      * 
      * @Description 			查询所有的菜单权限

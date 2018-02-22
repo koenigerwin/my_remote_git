@@ -9,13 +9,17 @@
 <title>Insert title here</title>
     <link href="${path}/static/js/ligerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" /> 
     <link href="${path}/static/js/ligerUI/lib/ligerUI/skins/Gray/css/all.css" rel="stylesheet" type="text/css" /> 
-    <style type="text/css">
-    .td1{
-    width: 70px;
+    <link rel="stylesheet" href="${path}/static/js/layui/css/layui.css">
     
-    }
+    <style type="text/css">
+   .td1{
+   width: 60px;
+   }
     tr {
 	height: 50px;
+}
+body {
+	font-size: 12px;
 }
     </style>
     
@@ -35,6 +39,8 @@
     <script src="${path}/static/js/ligerUI/lib/jquery-validation/jquery.validate.min.js" type="text/javascript"></script> 
     <script src="${path}/static/js/ligerUI/lib/jquery-validation/jquery.metadata.js" type="text/javascript"></script>
     <script src="${path}/static/js/ligerUI/lib/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="${path}/static/js/layui/layui.all.js"></script>
+    
         <script type="text/javascript">
            
      /*       $(function(){ $.ajax({
@@ -58,7 +64,7 @@
         	function loadData() //选择一笔,按确认按钮带回 
         	{
         		$.ajax({
-        			url:'${path}/sm/grant/add',
+        			url:'${path}/sm/grant/addPmsn',
         			method:'post',
         			dataType:'json',
         			data:$('#form1').serialize(),
@@ -83,7 +89,7 @@
         <body style="padding:10px">
 
             <form id="form1" name="form1">
-                <input type="hidden" id="txtPid" name="txtPid" value=""/>
+                <input type="hidden" id="txtPid" name="pmsnId"/>
                 <table cellpadding="0" cellspacing="0" class="l-table-edit" >
                     	
                    
@@ -99,10 +105,10 @@
                         </select></td>
                         
                     </tr>
-               
+              
                      <tr>
                     	           
-                        <td>链接地址:</td>
+                        <td class="td1">链接地址:</td>
                         <td><input name="pmsnUrl" type="text" id="txtUrl" ltype="text" validate="{required:true,email:true}" /></td>
                        
                     </tr>
@@ -111,8 +117,8 @@
                     <tr>
                     	
                         
-                        	<td > 描述:</td>
-                        	<td ><textarea cols="100" rows="4" class="l-textarea" id="txtDescription" name="pmsnDescription" style="width:100%" validate="{required:true}" ></textarea>
+                        	<td class="td1"> 描述:</td>
+                        	<td ><textarea cols="100" rows="4" class="l-textarea" id="txtDescription" name="pmsnDescription" style="width:70%" validate="{required:true}" ></textarea>
                         </td>
                     </tr>
                 </table>
@@ -123,7 +129,7 @@
             <div style="display:none">
             <!--  数据统计代码 --></div>
 
-            
+
         </body>
 
 

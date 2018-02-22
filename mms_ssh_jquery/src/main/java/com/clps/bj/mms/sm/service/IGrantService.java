@@ -127,20 +127,8 @@ public interface IGrantService {
 	 *
 	 */
 	public MyInfo getRoleMenusAndPermissions(RoleMenuPermissionInfo roleMenuPermissionInfo);
-		/**
-		 *            
-		 * @Description 			              	判断是否存在这个角色菜单权限关系	   
-		 * @param roleMenuPermissionInfo            RoleMenuPermissionInfo的vo对象 
-		 * @return boolean               			返回true存在;返回false不存在
-		 *
-		 */
-	public boolean iscontainsRoleMenuPermission(RoleMenuPermissionInfo roleMenuPermissionInfo);
-		/**
-		 * 
-		 * @Description                 刷新角色菜单权限缓存
-		 *
-		 */
-	public void flushRoleMenuPermissionCache();
+	public MyInfo getCheckMenu(RoleMenuPermissionInfo roleMenuPermissionInfo);
+	
 	/**
 	 * 
 	 * @Description 					  增加菜单权限
@@ -188,6 +176,14 @@ public interface IGrantService {
 	 *
 	 */
 	public List<MenuPermissionInfo> getAllMenuPermission();
+	/**
+	 * 
+	 * @Description 								查询菜单权限的id
+	 * @param menuPermissionInfo					菜单权限vo实体类对象
+	 * @return MenuPermissionInfo       			菜单权限vo实体类对象
+	 *
+	 */
+	public MenuPermissionInfo getSearchMenuPmsn(MenuPermissionInfo menuPermissionInfo);
 	/**
 	 * 
 	 * @Description 					判断是否存在菜单权限

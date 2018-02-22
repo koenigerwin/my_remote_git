@@ -14,7 +14,7 @@ import com.clps.bj.mms.sm.entity.Permission;
 public interface PermissionDao {
 	public static final String hqlUpdate = "update Permission set pmsnName=:pmsnName,"
 			+ "pmsnDescription=:pmsnDescription,pmsnUrl=:pmsnUrl,pmsnUpdateTime=:pmsnUpdateTime,pmsnUimId=:pmsnUimId where pmsnId=:pmsnId";//修改语句
-	public static final String hqlGetById = "from Permission  where pmsnId:pmsnId";//单值查询语句
+	public static final String hqlGetById = "from Permission  where pmsnId=:pmsnId";//单值查询语句
 	public static final String hqlsearch = "from Permission p";//模糊查询语句
 	public static final String hqlGetCount = "select count(*) from Permission";//统计条数
 	public static final String hqlGetAll = "from Permission";//查询所有

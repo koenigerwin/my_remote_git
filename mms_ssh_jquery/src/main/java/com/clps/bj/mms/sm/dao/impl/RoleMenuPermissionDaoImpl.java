@@ -59,22 +59,12 @@ public class RoleMenuPermissionDaoImpl implements RoleMenuPermissionDao {
 	 */
 	@Override
 	public boolean deleteRoleMenuPermission(RoleMenuPermission rmp) {
-		rmp_Id = rmp.getRmpId();
-		System.out.println(rmp_Id);
+	
 		rmpRole = rmp.getRole();
 		// 设置参数
 		//删除角色所有权限
-		if(rmp_Id == null ){
-			query = factory.getCurrentSession().createQuery(hqlDeleteByRole);
-			query.setParameter(role, rmpRole);
-			
-			
-		}
-		//删除指定id权限
-		else{
-			query = factory.getCurrentSession().createQuery(hqlDeleteById);
-			query.setParameter(rmpId, rmp_Id);
-		}
+			query = factory.getCurrentSession().createSQLQuery(hqlDeleteByRole);
+			query.setParameter(0, rmpRole.getRoleId());
 		i = query.executeUpdate();
 		return i > 0;
 	}
