@@ -8,6 +8,7 @@
 <head>
     <title></title>
     <style type="text/css">
+    	
     </style>
     <link href="${cp}/static/js/ligerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" />
     <script src="${cp}/static/js/ligerUI/lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>  
@@ -38,7 +39,12 @@
                 width:180
             });
             liger.get("listbox2").setData(${userjson});
-        });
+            $("#test1").change(function(){
+            	var box1 = liger.get("listbox1");
+            	box1.clearContent();
+	            clickee();
+	            });
+	        });
         function moveToLeft() {
             var box1 = liger.get("listbox1"),box2 = liger.get("listbox2");
             var selecteds = box2.getSelectedItems();
@@ -84,7 +90,7 @@
         	 $.ajax({
  	 	   		url:'updateuserrole',
  	 	   		data:{"roleId":$("#test3").val(),
- 	 	   			  "selected":JSON.stringify(selected),
+ 	 	   			  "selected":JSON.stringify(selected),  
  	 	   			  "noselected":JSON.stringify(noselected)
  	 	   		},
  	 	   		success:function(result){
@@ -98,15 +104,15 @@
         .middle input {
             display: block;width:111px; margin:2px;
         }
+      
     </style>
 </head>
 <body style="padding:10px"> 
 <!-- 下拉框 -->
 <div style="margin:10px;margin-top:100px;margin-right:35px;float:left;">请选择角色
-         <input type="text" id="test1" />
+      <input type="text" id="test1" />
 	  <input type="hidden" id="test2" /><br />
 	         
-	<a href="javascript:clickee()" class="l-button" style="width:100px">确定</a>
 </div>
 	 
 <!--  listbox-->
@@ -120,9 +126,9 @@
          <input type="button" onclick="moveAllToLeft()" value="全部添加到左边" /><br>
          <input type="button" onclick="moveAllToRight()" value="全部添加到右边" /><br>
      </div>
-     <div style="margin:4px;float:left;">无角色用户列表
+     <div style="margin:4px;float:left;">暂无角色用户列表
          <div id="listbox2"></div> 
      </div>
-     <input type=button value="提交" onclick="submit()"/>
+     <input style="cursor:pointer;position:absolute; margin-top:320px;margin-left:-36px;" type=button value="提交" onclick="submit()"/>
 </body>
 </html>

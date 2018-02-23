@@ -228,4 +228,16 @@ public class RoleController{
 			e.printStackTrace();
 		}
 	}
+	public void validate(HttpServletResponse response,String roleName) {
+		List<Role> list = service.queryAllRoleName();
+		for(Role role:list) {
+			if(role.getRoleName().equals(roleName)) {
+				try {
+					response.getWriter().write("角色名已存在，请重新输入");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }

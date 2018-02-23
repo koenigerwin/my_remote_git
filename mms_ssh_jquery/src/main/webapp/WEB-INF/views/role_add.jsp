@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>roleAdd</title>
     <link href="${cp}/static/js/ligerUI/lib/ligerUI/skins/Aqua/css/ligerui-all.css" rel="stylesheet" type="text/css" /> 
     <link href="${cp}/static/js/ligerUI/lib/ligerUI/skins/Gray/css/all.css" rel="stylesheet" type="text/css" /> 
     <script src="${cp}/static/js/ligerUI/lib/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
@@ -67,6 +67,17 @@
                  	}
                  });
             });
+            $("#roleName").blur(function(){
+            	$.ajax({
+            		url:"validate",
+            		data:{'roleName':$("#roleName").val()},
+            		success:function(result){
+            			if(result != ""){
+            				alert(result);
+            			}
+            		}
+            	});
+            });
         });  
         function change(){
     		var v= $("#roleIcon").val();
@@ -92,11 +103,10 @@
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
             <tr>
                 <td align="right" class="l-table-edit-td">角色名称:</td>
-                <td align="left" class="l-table-edit-td"><input name="roleName" type="text" id="roleName" ltype="text" validate="{required:true,minlength:1,maxlength:10}" /></td>
+                <td align="left"  class="l-table-edit-td"><input name="roleName" type="text" id="roleName" ltype="text" validate="{required:true,minlength:1,maxlength:30}" /></td>
                 <td align="left"></td>
             </tr>
- 
-             <tr>
+            <tr>
                 <td align="right" class="l-table-edit-td">角色图标:</td>
                 <td align="left" class="l-table-edit-td"> <p style="valign:top;align:left"></p>
                 	<select id="roleIcon" onchange="change()" name="roleIcon">
