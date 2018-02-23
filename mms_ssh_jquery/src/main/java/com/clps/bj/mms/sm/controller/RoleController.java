@@ -228,6 +228,7 @@ public class RoleController{
 			e.printStackTrace();
 		}
 	}
+	@RequestMapping("/validate")
 	public void validate(HttpServletResponse response,String roleName) {
 		List<Role> list = service.queryAllRoleName();
 		for(Role role:list) {
