@@ -75,6 +75,17 @@
                  	}
                  });
             });
+            $("#roleName").blur(function(){
+            	$.ajax({
+            		url:"validate",
+            		data:{'roleName':$("#roleName").val()},
+            		success:function(result){
+            			if(result != ""){
+            				alert(result);
+            			}
+            		}
+            	});
+            });
         });
         function change(){
     		var v= $("#roleIcon").val();
@@ -101,7 +112,7 @@
         <table cellpadding="0" cellspacing="0" class="l-table-edit" >
             <tr>
                 <td align="right" class="l-table-edit-td">角色名称:</td>
-                <td align="left" class="l-table-edit-td"><input name="roleName" type="text" id="roleName" ltype="text" validate="{required:true,minlength:1,maxlength:10}" /></td>
+                <td align="left" class="l-table-edit-td"><input name="roleName" type="text" id="roleName" ltype="text" validate="{required:true,minlength:1,maxlength:30}" /></td>
                 <td align="left"></td>
             </tr>
  

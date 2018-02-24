@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>roleList</title>
 	<style type="text/css">
 	    #menu1,.l-menu-shadow{top:30px; left:50px;}
 	    #menu1{  width:200px;}
@@ -28,22 +28,23 @@ function at(rowindex){
 function itemclick(item){
     if(item.text=="修改"){
 	    	var obj=g.getSelected();
+	    	if(obj==null){
+	    		alert("请先选中行");
+	    	}
 	    	var id=obj.roleId;
     		$.ligerDialog.open({ 
         		url: 'goupdaterole?'+$.param({
         			roleId:id
         		}), 
         		title:'修改角色',
-        		height: 600,width: 500,
-        	/* 	buttons: [ 
-        				  { text: '关闭', onclick: function (item, dialog) { 
-        						  dialog.close(); 
-        					  } 
-        				} 
-        		] */ }
-        	);
+        		height: 324,width: 500
+        		
+        		});
     		
     }else if(item.text=="删除"){
+    	if(obj==null){
+    		alert("请先选中行");
+    	}
 		$.ajax({
 			url:"role_delete",
 			data:{"roleId":g.getSelected().roleId},
@@ -66,13 +67,8 @@ $(function (){
             	$.ligerDialog.open({ 
             		url: 'goaddrole', 
             		title:'新增角色',
-            		height: 600,width: 500,
-            	  /*   buttons: [ 
-            				  { text: '关闭', onclick: function (item, dialog) { 
-            						  dialog.close(); 
-            					  } 
-            				} 
-            		]  */} 
+            		height: 324,width: 500
+            	} 
             	);
             }, icon:'add'},
 		        { line:true },
